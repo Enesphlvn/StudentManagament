@@ -16,4 +16,9 @@ export class StudentService {
     let newPath = this.apiUrl + 'Students';
     return this.httpClient.get<Student[]>(newPath);
   }
+
+  getById(studentId : string | null): Observable<Student>{
+    let newPath = this.apiUrl + 'students/' + studentId;
+    return this.httpClient.get<Student>(newPath);
+  }
 }

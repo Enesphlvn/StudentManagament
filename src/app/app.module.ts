@@ -41,15 +41,17 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { TopNavComponent } from './layout/top-nav/top-nav.component';
-import { StudentComponent } from './student/student.component';
+import { StudentComponent } from './component/student/student.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { ViewStudentComponent } from './component/student/view-student/view-student.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopNavComponent,
-    StudentComponent
+    StudentComponent,
+    ViewStudentComponent
   ],
   imports: [
     BrowserModule,
