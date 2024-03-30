@@ -13,7 +13,7 @@ export class StudentService {
   constructor(private httpClient : HttpClient) { }
 
   getAll(): Observable<Student[]>{
-    let newPath = this.apiUrl + 'Students';
+    let newPath = this.apiUrl + 'students';
     return this.httpClient.get<Student[]>(newPath);
   }
 

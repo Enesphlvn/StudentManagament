@@ -1,6 +1,6 @@
 <div class="page-header">
     <div class="container">
-        <h1>Öğrencileri Görüntüle</h1>
+        <h1>Öğrenci Detayı</h1>
     </div>
 </div>
 
@@ -21,13 +21,15 @@
                     <div class="col-xs-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Ad</mat-label>
-                            <input matInput placeholder="Adınızı girin" [(ngModel)]="student.firstName" name="firstName">
+                            <input matInput placeholder="Adınızı girin" [(ngModel)]="student.firstName"
+                                name="firstName">
                         </mat-form-field>
                     </div>
                     <div class="col-xs-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Soyad</mat-label>
-                            <input matInput placeholder="Soyadınızı girin" [(ngModel)]="student.lastName" name="lastName">
+                            <input matInput placeholder="Soyadınızı girin" [(ngModel)]="student.lastName"
+                                name="lastName">
                         </mat-form-field>
                     </div>
                 </div>
@@ -35,7 +37,8 @@
                     <div class="col-xs-12">
                         <mat-form-field appearance="outline">
                             <mat-label>Doğum Tarihi</mat-label>
-                            <input matInput [matDatepicker]="picker"  [(ngModel)]="student.dateOfBirth" name="dateOfBirth">
+                            <input matInput [matDatepicker]="picker" [(ngModel)]="student.dateOfBirth"
+                                name="dateOfBirth">
                             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                         </mat-form-field>
@@ -51,7 +54,8 @@
                     <div class="col-xs-6">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Telefon</mat-label>
-                            <input matInput placeholder="Telefon numaranızı girin" [(ngModel)]="student.mobile" name="mobile">
+                            <input matInput placeholder="Telefon numaranızı girin" [(ngModel)]="student.mobile"
+                                name="mobile">
                         </mat-form-field>
                     </div>
                 </div>
@@ -59,7 +63,11 @@
                     <div class="col-xs-12">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Cinsiyet</mat-label>
-                            <input matInput [(ngModel)]="student.gender.description" name="gender">
+                            <mat-select [(ngModel)]="student.genderId" name="gender">
+                                <mat-option *ngFor="let gender of genders" [value]="gender.id">
+                                    {{gender.description}}
+                                </mat-option>
+                            </mat-select>
                         </mat-form-field>
                     </div>
                 </div>
@@ -67,7 +75,8 @@
                     <div class="col-xs-12">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Adres</mat-label>
-                            <textarea matInput  [(ngModel)]="student.address.physicalAddress" name="physicalAddress"></textarea>
+                            <textarea matInput [(ngModel)]="student.address.physicalAddress"
+                                name="physicalAddress"></textarea>
                         </mat-form-field>
                     </div>
                 </div>
@@ -75,7 +84,8 @@
                     <div class="col-xs-12">
                         <mat-form-field class="example-full-width" appearance="outline">
                             <mat-label>Posta Kodu</mat-label>
-                            <textarea matInput [(ngModel)]="student.address.postalAddress" name="postalAddress"></textarea>
+                            <textarea matInput [(ngModel)]="student.address.postalAddress"
+                                name="postalAddress"></textarea>
                         </mat-form-field>
                     </div>
                 </div>
