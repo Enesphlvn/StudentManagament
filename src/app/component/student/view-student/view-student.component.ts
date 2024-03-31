@@ -33,6 +33,8 @@ export class ViewStudentComponent implements OnInit {
       postalAddress: '',
     },
   };
+  isNewStudent = false;
+  header = '';
 
   constructor(
     private studentService: StudentService,
@@ -45,12 +47,21 @@ export class ViewStudentComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.studentId = params.get('id');
-      this.studentService.getById(this.studentId).subscribe(
-        (success) => {
-          this.student = success;
-        },
-        (err) => {},
-      );
+
+      // studentId = "add" ise eklemeye göre
+      if (this.studentId === 'add') {
+        this.isNewStudent = true;
+        this.header = 'Öğrenci Ekle';
+      } else {
+        this.isNewStudent = false;
+        this.header = 'Öğrenci Bilgileri';
+        this.studentService.getById(this.studentId).subscribe(
+          (success) => {
+            this.student = success;
+          },
+          (err) => {},
+        );
+      }
     });
 
     this.getAllGenders();
@@ -93,6 +104,24 @@ export class ViewStudentComponent implements OnInit {
       },
       (error) => {
         this.snackBar.open('Silme işlemi başarısız', 'Kapat', {
+          duration: 2000,
+        });
+      },
+    );
+  }
+
+  onAdd() {
+    this.studentService.add(this.student).subscribe(
+      (success) => {
+        this.snackBar.open('Ekleme işlemi başarılı', 'Kapat', {
+          duration: 2000,
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl(`students/${success.id}`);
+        }, 2000);
+      },
+      (error) => {
+        this.snackBar.open('Ekleme işlemi başarısız!', 'Kapat', {
           duration: 2000,
         });
       },
