@@ -38,8 +38,8 @@ export class ViewStudentComponent implements OnInit {
     private studentService: StudentService,
     private genderService: GenderService,
     private route: ActivatedRoute,
-    private router : Router,
-    private snackBar : MatSnackBar
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -69,13 +69,31 @@ export class ViewStudentComponent implements OnInit {
     this.studentService.update(this.student.id, this.student).subscribe(
       (success) => {
         this.snackBar.open('Güncelleme işlemi başarılı', 'Kapat', {
-          duration: 2000
+          duration: 2000,
         });
         this.router.navigateByUrl('students');
       },
       (error) => {
         this.snackBar.open('Güncelleme işlemi başarısız!', 'Kapat', {
-          duration: 2000
+          duration: 2000,
+        });
+      },
+    );
+  }
+
+  onDelete() {
+    this.studentService.delete(this.student.id).subscribe(
+      (success) => {
+        this.snackBar.open('Silme işlemi başarılı', 'Kapat', {
+          duration: 2000,
+        });
+        setTimeout(() => {
+          this.router.navigateByUrl('students');
+        }, 2000);
+      },
+      (error) => {
+        this.snackBar.open('Silme işlemi başarısız', 'Kapat', {
+          duration: 2000,
         });
       },
     );

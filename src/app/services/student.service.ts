@@ -36,4 +36,9 @@ export class StudentService {
     let newPath = this.apiUrl + 'students/' + studentId;
     return this.httpClient.put<Student>(newPath, updateStudentRequest);
   }
+
+  delete(studentId: string): Observable<Student> {
+    let newPath = this.apiUrl + 'students/' + studentId;
+    return this.httpClient.delete<Student>(newPath);
+  }
 }
