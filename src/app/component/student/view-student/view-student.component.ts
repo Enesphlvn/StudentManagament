@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Student } from '../../../models/ui-models/student.model';
 import { GenderService } from '../../../services/gender.service';
 import { Gender } from '../../../models/ui-models/gender.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-view-student',
@@ -11,9 +12,9 @@ import { Gender } from '../../../models/ui-models/gender.model';
   styleUrl: './view-student.component.css',
 })
 export class ViewStudentComponent implements OnInit {
-  genders : Gender[] = [];
+  genders: Gender[] = [];
   studentId: string | null | undefined;
-  student : Student = {
+  student: Student = {
     id: '',
     firstName: '',
     lastName: '',
@@ -24,19 +25,21 @@ export class ViewStudentComponent implements OnInit {
     profileImageUrl: '',
     gender: {
       id: '',
-      description: ''
+      description: '',
     },
     address: {
       id: '',
       physicalAddress: '',
-      postalAddress: ''
-    }
-  }
+      postalAddress: '',
+    },
+  };
 
   constructor(
     private studentService: StudentService,
     private genderService: GenderService,
     private route: ActivatedRoute,
+    private router : Router,
+    private snackBar : MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -46,23 +49,35 @@ export class ViewStudentComponent implements OnInit {
         (success) => {
           this.student = success;
         },
-        (err) => {
-
-        },
+        (err) => {},
       );
     });
 
     this.getAllGenders();
   }
 
-  getAllGenders(){
+  getAllGenders() {
     this.genderService.getAll().subscribe(
       (success) => {
         this.genders = success;
       },
-      (err) => {
+      (err) => {},
+    );
+  }
 
-      }
+  onUpdate() {
+    this.studentService.update(this.student.id, this.student).subscribe(
+      (success) => {
+        this.snackBar.open('Güncelleme işlemi başarılı', 'Kapat', {
+          duration: 2000
+        });
+        this.router.navigateByUrl('students');
+      },
+      (error) => {
+        this.snackBar.open('Güncelleme işlemi başarısız!', 'Kapat', {
+          duration: 2000
+        });
+      },
     );
   }
 }
